@@ -1,8 +1,11 @@
-from blender_mcp.server import main as server_main
+from aframe_mcp.server import main as server_main
 
-def main():
-    """Entry point for the blender-mcp package"""
+
+def main() -> None:
+    """Entry point for the aframe-mcp package."""
+
     server_main()
+
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>A-Frame MCP Demo</title>
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="../web/aframe_bridge.js"></script>
+  </head>
+  <body>
+    <a-scene embedded>
+      <a-entity id="rig" position="0 1.6 4">
+        <a-entity camera look-controls wasd-controls></a-entity>
+      </a-entity>
+
+      <a-sky color="#ECECEC"></a-sky>
+      <a-plane rotation="-90 0 0" width="20" height="20" color="#7BC8A4"></a-plane>
+      <a-box position="0 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
+      <a-sphere position="-1 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
+      <a-cylinder position="1 0.75 -5" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
+    </a-scene>
+  </body>
+</html>
