@@ -214,10 +214,39 @@
         throw new Error('No camera available in the scene');
       }
 
-      const box = new THREE.Box3().setFromObject(target.object3D);
-      const center = box.getCenter(new THREE.Vector3());
-      const size = box.getSize(new THREE.Vector3()).length();
-      const distance = size > 0 ? size * 1.5 : 3;
+      const object3D = target.object3D;
+      if (!object3D) {
+        throw new Error(`Target ${selector} does not have an object3D`);
+      }
+
+      const box = new THREE.Box3();
+      box.setFromObject(object3D);
+
+      const center = new THREE.Vector3();
+      let distance = 3;
+
+      const isValidBox =
+        !box.isEmpty() &&
+        Number.isFinite(box.min.x) &&
+        Number.isFinite(box.min.y) &&
+        Number.isFinite(box.min.z) &&
+        Number.isFinite(box.max.x) &&
+        Number.isFinite(box.max.y) &&
+        Number.isFinite(box.max.z);
+
+      if (isValidBox) {
+        box.getCenter(center);
+        const size = box.getSize(new THREE.Vector3()).length();
+        if (size > 0) {
+          distance = size * 1.5;
+        }
+      } else {
+        console.warn(
+          '[AFrame MCP] focus_camera fallback: target has no renderable geometry, using world position.'
+        );
+        object3D.getWorldPosition(center);
+      }
+
       const offset = new THREE.Vector3(0, distance, distance);
       const position = center.clone().add(offset);
 
